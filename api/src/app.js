@@ -17,7 +17,7 @@ app.get('/', function(req, res) {
         })
         .catch((err) =>
             res.status(500).json({
-            message: 'An error occurred while fetching the workouts',
+            message: 'An error occurred while fetching the items',
             error: err,
             })
         );
@@ -40,7 +40,7 @@ app.get('/myitems/:user_account_id', function(req, res) {
         );
 })
 
-//check login info of the user and returns the user ID
+//check login info of the user and return the user ID
 app.post('/login/', (req, res) => {
     const { username, password } = req.body;
     knex('user_account')
@@ -71,7 +71,7 @@ app.post('/', (req, res) => {
     .returning('id')
     .then(() =>
         res.status(201).json({
-        message: 'Workout created successfully',
+        message: 'Item created successfully',
         })
     )
     .catch((err) =>
@@ -99,6 +99,7 @@ app.post('/createuser', (req, res) => {
     );
 })
 
+//removes item based off item id
 app.delete('/myitems/:item_id', function(req, res) {
     const itemId  = req.params.item_id
     knex('item')
@@ -115,6 +116,33 @@ app.delete('/myitems/:item_id', function(req, res) {
             })
         })
 })
+
+//edits an item based off of item Id
+app.patch('/myitems/:item_id', function(req, res) {
+    const itemId = req.params.item_id;
+    const { itemname, description, quantity } = req.body;
+  
+    knex('item')
+      .where('id', itemId)
+      .update({ itemname, description, quantity })
+      .then((data) => {
+        if (data === 0) {
+          return res.status(404).json({
+            message: "Item not found",
+          });
+        }
+        res.status(200).json({
+          message: 'Item updated successfully',
+        });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        res.status(500).json({
+          message: 'An error occurred while updating the item',
+        });
+      });
+  });
+  
 
 app.listen(PORT, () => {
     console.log(`The server is running on ${PORT}`);

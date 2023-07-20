@@ -79,7 +79,8 @@ export default function Login() {
             label="Password"
           />
         </FormControl>
-            <Button variant="contained" type="submit" className='loginbutton' onClick = {submitLogin}>Sign In </Button>
+            <Button variant="contained" type="submit" className='loginbutton' onClick = {submitLogin}> Sign In </Button>
+            <Button variant="contained" className='createAccountBtn' onClick={() => navigate('/createaccount')}> Create Account </Button>
         </Form>
     )
 }
@@ -90,4 +91,5 @@ const Form = styled.form`
     align-items: center;
     justify-content: center;
     height: 100%;
+    gap: 20px;
 `

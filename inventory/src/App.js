@@ -1,9 +1,12 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, createContext } from 'react';
 import { BrowserRouter, Route, Routes, } from 'react-router-dom';
 import Header from './Components/Header';
 import Home from './Components/Home';
 import Login from './Components/Login';
 import MyItems from './Components/MyItems';
+import AddItem from './Components/AddItem';
+import CreateAccount from './Components/CreateAccount';
+import EditItem from './Components/EditItem'
 import styled from 'styled-components'
 
 
@@ -28,6 +31,9 @@ function App() {
                     <Route path='/' element={<Home />} />
                     <Route path='/login/*' element={<Login />} />
                     <Route path='/myitems/*' element={<MyItems />} />
+                    <Route path='/additem/*' element={<AddItem />} />
+                    <Route path='/edititem/*' element={<EditItem />} />
+                    <Route path='/createaccount/*' element={<CreateAccount />} />
                     <Route path='/*' element={<Home />} /> catch all
                 </Routes>
             </BodyContainer>

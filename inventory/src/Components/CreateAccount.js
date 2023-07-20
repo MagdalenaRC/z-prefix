@@ -18,7 +18,7 @@ export default function CreateAccount() {
         let inputLastname = document.getElementById('lastname').value;
         let inputUsername = document.getElementById('username').value;
         let inputPassword = document.getElementById('password').value;
-        console.log(inputFirstname);
+        alert('Account created, please login');
         createAccount(inputFirstname, inputLastname, inputUsername, inputPassword);
     }
     //asyc function to POST 

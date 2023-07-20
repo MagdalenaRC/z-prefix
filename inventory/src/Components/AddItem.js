@@ -51,13 +51,20 @@ export default function AddItem() {
                 <InputLabel htmlFor="quantity">Quantity</InputLabel>
                 <OutlinedInput type="number" id="quantity" label="quantity"/> 
             </FormControl>
-            <Button variant="contained" type="submit" className='addItemBtn' onClick = {submitAddItem}>Add Item</Button>
+            <ButtonContainer>
+                <Button variant="contained" style={{ width: '200px'}} type="submit" className='addItemBtn' onClick = {submitAddItem}>Add Item</Button>
+            </ButtonContainer>
         </Form>
     )
 }
 
 const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 100px;
+  justify-content: center;
+`
+const ButtonContainer = styled.div`
 display: flex;
-flex-direction: column;
-margin: 100px;
+justify-content: center;
 `

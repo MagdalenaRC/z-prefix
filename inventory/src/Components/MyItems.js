@@ -35,47 +35,73 @@ export default function MyItems() {
         <>
         <ContainerDiv>
             <Button variant="contained" className='addItemBtn' onClick={() => navigate('/additem')}> Add Item </Button>
-            <DetailsContainer>
+            <DetailsContainer style={selectedItem ? { backgroundColor: "#9F6DF0" } : {}}>
                 <h3>{selectedItem?.itemname}</h3>
-                <p>{selectedItem?.description}</p>
+                {selectedItem?.description !== undefined && <p>Description: {selectedItem?.description}</p>}
                 {selectedItem?.quantity !== undefined && <p>Quantity: {selectedItem?.quantity}</p>}
             </DetailsContainer>
             
-           {myData.length === 0 ? "No items in inventory" :
-           myData.map((item, index) => (
-            <ItemContainer>
-                <ItemDetails onClick={() => setSelectedItem(item)}>
-                    <h3>{item.itemname}</h3>
-                    <p>Description: {item.description.length > 100 ? item.description.slice(0, 50) + "..." : item.description}</p>
-                    <p>Quantity: {item.quantity}</p>
-                </ItemDetails>
-                <DeleteIcon className='delItem' onClick={() => deleteItem( item.id )}></DeleteIcon>
-                <EditIcon  className='editBtn' onClick={() => navigate('/edititem', 
-                    {state:{ itemId: item.id, itemname: item.itemname, description: item.description, quantity: item.quantity}})}></EditIcon>
-            </ItemContainer>
-           ))
-           }
+            <ItemsWrapper>
+                {myData.length === 0 ? "No items in inventory" :
+                myData.map((item, index) => (
+                <ItemContainer>
+                    <IconContainer>
+                        <EditIcon  className='editBtn' onClick={() => navigate('/edititem', 
+                            {state:{ itemId: item.id, itemname: item.itemname, description: item.description, quantity: item.quantity}})}></EditIcon>
+                        <DeleteIcon className='delItem' onClick={() => deleteItem( item.id )}></DeleteIcon>
+                    </IconContainer>
+                    <ItemDetails onClick={() => setSelectedItem(item)}>
+                        <h3>{item.itemname}</h3>
+                        <p>Description: {item.description.length > 100 ? item.description.slice(0, 50) + "..." : item.description}</p>
+                        <p>Quantity: {item.quantity}</p>
+                    </ItemDetails>
+                </ItemContainer>
+                ))
+                }
+            </ItemsWrapper>
         </ContainerDiv>
         </>
     )
 }
 
 const ContainerDiv = styled.div`
+height: calc(100vh - 200px);
+overflow-y: auto;
+margin: 20px;
+`
+const DetailsContainer = styled.div`
+border-radius: 5px;
+padding: 1em;
+margin-top: 1em;
+margin-bottom: 1em;
+margin-left: 8em;
+margin-right: 8em;
+display:flex;
+flex-direction: column;
+align-items: center;
+`
+const ItemsWrapper = styled.div`
 display: flex;
 flex-flow: row wrap;
+justify-content: center;
 `
+
+const IconContainer = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+`
+
 const ItemContainer = styled.div`
 background-color: lightblue;
-padding: 1em 1em 1em 1em;
-margin-top: 10px;
-margin-bottom: 10px;
-margin-right: 10px;
-margin-left: 10px;
+width: 350px;
+height: 200px; 
+padding: 1em;
+margin: 1em;
+display: flex;
+flex-direction: column;
+border-radius: 5px;
 `
 
 const ItemDetails = styled.div`
-`
-
-const DetailsContainer = styled.div`
-
 `

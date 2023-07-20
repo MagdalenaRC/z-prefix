@@ -50,7 +50,7 @@ app.post('/login/', (req, res) => {
     .then((data) => {
         if (data.length === 0) {
         return res.status(404).json({
-            message: 'User name and/or passowrd are incorrect',
+            message: 'Username and/or passowrd are incorrect',
         });
         }
         res.status(200).json(data);

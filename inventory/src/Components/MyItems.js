@@ -37,6 +37,9 @@ export default function MyItems() {
             <Button variant="contained" className='addItemBtn' onClick={() => navigate('/additem')}> Add Item </Button>
             <DetailsContainer style={selectedItem ? { backgroundColor: "#9F6DF0" } : {}}>
                 <h3>{selectedItem?.itemname}</h3>
+                <ImageContainer >
+                    {selectedItem?.image !== undefined && <img src={selectedItem.image}  style={{ objectFit: 'contain', width: '100%', height: '100%' }} alt="Item Image"/>}
+                </ImageContainer>
                 {selectedItem?.description !== undefined && <p>Description: {selectedItem?.description}</p>}
                 {selectedItem?.quantity !== undefined && <p>Quantity: {selectedItem?.quantity}</p>}
             </DetailsContainer>
@@ -45,13 +48,19 @@ export default function MyItems() {
                 {myData.length === 0 ? "No items in inventory" :
                 myData.map((item, index) => (
                 <ItemContainer>
-                    <IconContainer>
+                    <IconContainer >
                         <EditIcon  className='editBtn' onClick={() => navigate('/edititem', 
-                            {state:{ itemId: item.id, itemname: item.itemname, description: item.description, quantity: item.quantity}})}></EditIcon>
+                            {state:{ itemId: item.id, itemname: item.itemname, description: item.description, quantity: item.quantity, image: item.image}})}></EditIcon>
                         <DeleteIcon className='delItem' onClick={() => deleteItem( item.id )}></DeleteIcon>
                     </IconContainer>
                     <ItemDetails onClick={() => setSelectedItem(item)}>
                         <h3>{item.itemname}</h3>
+                        <ImageContainer>
+                            <img src={item.image}
+                            style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+                            alt="Item Image" 
+                            />
+                        </ImageContainer>
                         <p>Description: {item.description.length > 100 ? item.description.slice(0, 50) + "..." : item.description}</p>
                         <p>Quantity: {item.quantity}</p>
                     </ItemDetails>
@@ -95,7 +104,7 @@ justify-content: space-between;
 const ItemContainer = styled.div`
 background-color: lightblue;
 width: 350px;
-height: 200px; 
+height: 400px; 
 padding: 1em;
 margin: 1em;
 display: flex;
@@ -104,4 +113,9 @@ border-radius: 5px;
 `
 
 const ItemDetails = styled.div`
+`
+
+const ImageContainer = styled.div`
+width: 200px;
+height: 200px;
 `

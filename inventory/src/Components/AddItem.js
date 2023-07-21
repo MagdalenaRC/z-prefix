@@ -16,16 +16,17 @@ export default function AddItem() {
         let inputItemname = document.getElementById('itemname').value;
         let inputDescription = document.getElementById('description').value;
         let inputQuantity = document.getElementById('quantity').value;
+        let inputImage = document.getElementById('image').value;
         console.log(inputItemname);
-        addItem(inputItemname, inputDescription, inputQuantity);
+        addItem(inputItemname, inputDescription, inputQuantity, inputImage);
     }
     //asyc function to POST 
-    async function addItem( itemname, description, quantity) {
+    async function addItem( itemname, description, quantity, image) {
         let newItemId
         fetch(`http://localhost:3001/`,{
             method:"POST",
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({"user_account_id": user,"itemname":itemname, "description": description, "quantity": quantity})
+            body: JSON.stringify({"user_account_id": user,"itemname":itemname, "description": description, "quantity": quantity, "image": image})
         })
         .then(response => response.json())
         .then(data=> {
@@ -50,6 +51,10 @@ export default function AddItem() {
             <FormControl sx={{ml:2, mr:2, my:1}} variant="outlined">
                 <InputLabel htmlFor="quantity">Quantity</InputLabel>
                 <OutlinedInput type="number" id="quantity" label="quantity"/> 
+            </FormControl>
+            <FormControl sx={{ml:2, mr:2, my:1}} variant="outlined">
+                <InputLabel htmlFor="image">Image</InputLabel>
+                <OutlinedInput id="image" label="image" /> 
             </FormControl>
             <ButtonContainer>
                 <Button variant="contained" style={{ width: '200px'}} type="submit" className='addItemBtn' onClick = {submitAddItem}>Add Item</Button>

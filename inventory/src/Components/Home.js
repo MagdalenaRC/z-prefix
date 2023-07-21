@@ -17,6 +17,9 @@ export default function Home() {
         <ContainerDiv>
             <DetailsContainer style={selectedItem ? { backgroundColor: "#9F6DF0" } : {}}>
                 <h3>{selectedItem?.itemname}</h3>
+                <ImageContainer>
+                    {selectedItem?.image !== undefined && <img src={selectedItem.image}  style={{ objectFit: 'contain', width: '100%', height: '100%' }} alt="Item Image"/>}
+                </ImageContainer>
                 {selectedItem?.description !== undefined && <p>Description: {selectedItem?.description}</p>}
                 {selectedItem?.quantity !== undefined && <p>Quantity: {selectedItem?.quantity}</p>}
             </DetailsContainer>
@@ -26,6 +29,12 @@ export default function Home() {
                 allItems.map((item, index) => (
                     <ItemContainer onClick={() => setSelectedItem(item)}>
                         <h3>{item.itemname}</h3>
+                        <ImageContainer>
+                            <img src={item.image}
+                            style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+                            alt="Item Image" 
+                            />
+                        </ImageContainer>
                         <p>Description: {item.description.length > 100 ? item.description.slice(0, 50) + "..." : item.description}</p>
                         <p>Quantity: {item.quantity}</p>
                     </ItemContainer>
@@ -60,11 +69,16 @@ justify-content: center;
 const ItemContainer = styled.div`
   background-color: lightblue;
   width: 350px;
-  height: 200px; 
+  height: 400px; 
   padding: 1em;
   margin: 1em;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
 `
+const ImageContainer = styled.div`
+width: 200px;
+height: 200px;
+`
+
 

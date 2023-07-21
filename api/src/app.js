@@ -65,9 +65,9 @@ app.post('/login/', (req, res) => {
 
 //post new item into item table under user account
 app.post('/', (req, res) => {
-    const { user_account_id, itemname, description, quantity } = req.body;
+    const { user_account_id, itemname, description, quantity, image } = req.body;
     knex('item')
-    .insert({ user_account_id, itemname, description, quantity })
+    .insert({ user_account_id, itemname, description, quantity, image })
     .returning('id')
     .then(() =>
         res.status(201).json({
@@ -120,11 +120,11 @@ app.delete('/myitems/:item_id', function(req, res) {
 //edits an item based off of item Id
 app.patch('/myitems/:item_id', function(req, res) {
     const itemId = req.params.item_id;
-    const { itemname, description, quantity } = req.body;
+    const { itemname, description, quantity, image } = req.body;
   
     knex('item')
       .where('id', itemId)
-      .update({ itemname, description, quantity })
+      .update({ itemname, description, quantity, image })
       .then((data) => {
         if (data === 0) {
           return res.status(404).json({
